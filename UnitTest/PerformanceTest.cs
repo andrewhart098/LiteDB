@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace UnitTest
         public string Nome { get; set; }
     }
 
-    [TestClass]
+    
     public class PerformanceTest
     {
         private const string dbpath = @"filename=C:\Temp\perf.ldb;journal=true";
@@ -26,7 +26,7 @@ namespace UnitTest
             //File.Delete(dbpath);
         }
 
-        [TestMethod]
+        [Fact]
         public void Create_100k_Rows_DB()
         {
             using (var db = new LiteEngine(dbpath))
@@ -53,7 +53,7 @@ namespace UnitTest
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Search_Perf()
         {
             Guid g;

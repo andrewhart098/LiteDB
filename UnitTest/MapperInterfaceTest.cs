@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Collections.Specialized;
 namespace UnitTest
 {
 
-    [TestClass]
+    
     public class MapperInterfaceTest
     {
         public interface IMyInterface
@@ -44,7 +44,7 @@ namespace UnitTest
             public MyClassImpl Impl { get; set; }
         }
 
-        [TestMethod]
+        [Fact]
         public void MapInterfaces_Test()
         {
             var mapper = new BsonMapper();
@@ -57,17 +57,17 @@ namespace UnitTest
             var bson2 = mapper.ToDocument(c2); // add _type in Impl property
             var bson3 = mapper.ToDocument(c3); // do not add _type in Impl property
 
-            Assert.AreEqual("UnitTest.MapperInterfaceTest+MyClassImpl, UnitTest", bson1["Impl"].AsDocument["_type"].AsString);
-            Assert.AreEqual("UnitTest.MapperInterfaceTest+MyClassImpl, UnitTest", bson2["Impl"].AsDocument["_type"].AsString);
-            Assert.AreEqual(false, bson3["Impl"].AsDocument.ContainsKey("_type"));
+            Assert.Equal("UnitTest.MapperInterfaceTest+MyClassImpl, UnitTest", bson1["Impl"].AsDocument["_type"].AsString);
+            Assert.Equal("UnitTest.MapperInterfaceTest+MyClassImpl, UnitTest", bson2["Impl"].AsDocument["_type"].AsString);
+            Assert.Equal(false, bson3["Impl"].AsDocument.ContainsKey("_type"));
 
             var k1 = mapper.ToObject<MyClassWithInterface>(bson1);
             var k2 = mapper.ToObject<MyClassWithObject>(bson2);
             var k3 = mapper.ToObject<MyClassWithClassName>(bson3);
 
-            Assert.AreEqual(c1.Impl.Name, k1.Impl.Name);
-            Assert.AreEqual((c2.Impl as MyClassImpl).Name, (k2.Impl as MyClassImpl).Name);
-            Assert.AreEqual(c3.Impl.Name, k3.Impl.Name);
+            Assert.Equal(c1.Impl.Name, k1.Impl.Name);
+            Assert.Equal((c2.Impl as MyClassImpl).Name, (k2.Impl as MyClassImpl).Name);
+            Assert.Equal(c3.Impl.Name, k3.Impl.Name);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -8,10 +8,10 @@ using System.Diagnostics;
 
 namespace UnitTest
 {
-    [TestClass]
+    
     public class BigFileTest
     {
-        //[TestMethod]
+        //[Fact]
         public void BigFile_Test()
         {
             var fileSize = 8L * 1024L * 1024L * 1024L; // 5Gb

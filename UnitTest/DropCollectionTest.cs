@@ -1,5 +1,5 @@
 ﻿using LiteDB;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,10 @@ using System.Text;
 
 namespace UnitTest
 {
-    [TestClass]
+    
     public class DropCollectionTest
     {
-        [TestMethod]
+        [Fact]
         public void DropCollection_Test()
         {
             using (var db = new LiteDatabase(DB.Path()))

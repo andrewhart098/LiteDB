@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -32,10 +32,10 @@ namespace UnitTest
         public string Name { get; set; }
     }
 
-    [TestClass]
+    
     public class AutoIdTest
     {
-        [TestMethod]
+        [Fact]
         public void AutoId_Test()
         {
             using (var db = new LiteDatabase(DB.Path()))
@@ -80,7 +80,8 @@ namespace UnitTest
                 try
                 {
                     cs_str.Insert(cstr_1);
-                    Assert.Fail();
+                    //Assert.Fail();
+                    throw new Exception("Exception not thrown on Insert");
                 }
                 catch (LiteException)
                 {
@@ -89,19 +90,19 @@ namespace UnitTest
                 }
 
                 // test for int
-                Assert.AreEqual(cint_1.Id, 1);
-                Assert.AreEqual(cint_2.Id, 2);
-                Assert.AreEqual(cint_5.Id, 5);
-                Assert.AreEqual(cint_6.Id, 6);
+                Assert.Equal(cint_1.Id, 1);
+                Assert.Equal(cint_2.Id, 2);
+                Assert.Equal(cint_5.Id, 5);
+                Assert.Equal(cint_6.Id, 6);
 
                 // test for guid
-                Assert.AreEqual(cguid_1.Id, guid);
-                Assert.AreNotEqual(cguid_2.Id, Guid.Empty);
-                Assert.AreNotEqual(cguid_1.Id, cguid_2.Id);
+                Assert.Equal(cguid_1.Id, guid);
+                Assert.NotEqual(cguid_2.Id, Guid.Empty);
+                Assert.NotEqual(cguid_1.Id, cguid_2.Id);
 
                 // test for oid
-                Assert.AreNotEqual(coid_1, ObjectId.Empty);
-                Assert.AreEqual(coid_2.Id, oid);
+                Assert.NotEqual(coid_1.Id, ObjectId.Empty);
+                Assert.Equal(coid_2.Id, oid);
 
             }
         }

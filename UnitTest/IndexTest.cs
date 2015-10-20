@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace UnitTest
 {
-    [TestClass]
+    
     public class IndexTest
     {
         private const string dbpath = @"C:\Temp\index.db";
@@ -19,7 +19,7 @@ namespace UnitTest
             File.Delete(dbpath);
         }
 
-        [TestMethod]
+        [Fact]
         public void Index_Insert()
         {
             using (var db = new LiteEngine(dbpath))
@@ -55,12 +55,12 @@ namespace UnitTest
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Index_Search()
         {
         }
 
-        [TestMethod]
+        [Fact]
         public void Index_Delete()
         {
         }

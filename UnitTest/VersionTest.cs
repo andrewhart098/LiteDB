@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -36,10 +36,10 @@ namespace UnitTest
         }
     }
 
-    [TestClass]
+    
     public class VersionTest
     {
-        [TestMethod]
+        [Fact]
         public void Version_Test()
         {
             var dbf = DB.Path();
@@ -51,7 +51,7 @@ namespace UnitTest
                 var col = db.GetCollection("customer");
 
                 // On initialize db, i insert a first row
-                Assert.AreEqual(1, col.Count());
+                Assert.Equal(1, col.Count());
             }
 
             using (var db = new VersionDB(cs2))
@@ -59,7 +59,7 @@ namespace UnitTest
                 var col = db.GetCollection("customer");
 
                 // And when update database to version 2, insert another
-                Assert.AreEqual(4, col.Count());
+                Assert.Equal(4, col.Count());
             }
         }
     }

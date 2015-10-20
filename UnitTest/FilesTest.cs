@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Collections.Specialized;
 
 namespace UnitTest
 {
-    [TestClass]
+    
     public class FilesTest
     {
         private const string dbpath = @"C:\Temp\files.ldb";
@@ -20,7 +20,7 @@ namespace UnitTest
             File.Delete(dbpath);
         }
 
-        [TestMethod]
+        [Fact]
         public void Files_Store()
         {
             using (var db = new LiteEngine(dbpath))
@@ -55,18 +55,18 @@ namespace UnitTest
 
                 var f = db.Storage.FindByKey("my/foto1.jpg");
 
-                Assert.AreEqual(5000, f.Length);
-                Assert.AreEqual("Google LiteDB", f.Metadata["my-data"]);
+                Assert.Equal(5000, f.Length);
+                Assert.Equal("Google LiteDB", f.Metadata["my-data"]);
 
                 var mem = new MemoryStream();
 
                 f.OpenRead(db).CopyTo(mem);
 
                 // file real size after read all bytes
-                Assert.AreEqual(5000, mem.Length);
+                Assert.Equal(5000, mem.Length);
 
                 // all bytes are 0
-                Assert.AreEqual(5000, mem.ToArray().Count(x => x == 0));
+                Assert.Equal(5000, mem.ToArray().Count(x => x == 0));
 
                 db.Storage.Delete("my/foto1.jpg");
 
@@ -75,7 +75,7 @@ namespace UnitTest
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void Files_Store_My_Picture()
         {
             using (var db = new LiteEngine(dbpath))

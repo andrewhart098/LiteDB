@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -22,10 +22,10 @@ namespace UnitTest
         public string Name { get; set; }
     }
 
-    [TestClass]
+    
     public class IncludeTest
     {
-        [TestMethod]
+        [Fact]
         public void Include_Test()
         {
             using (var db = new LiteDatabase(DB.Path()))
@@ -54,7 +54,7 @@ namespace UnitTest
                     .Select(x => new { CustomerName = x.Customer.Item.Name })
                     .FirstOrDefault();
 
-                Assert.AreEqual(customer.Name, query.CustomerName);
+                Assert.Equal(customer.Name, query.CustomerName);
 
             }
         }
