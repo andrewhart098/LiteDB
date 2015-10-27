@@ -28,7 +28,7 @@ namespace UnitTest
         {
             var path = System.IO.Path.GetFullPath(
                 System.IO.Directory.GetCurrentDirectory() + 
-                string.Format("../../../../TestResults/test-{0}.db", Guid.NewGuid()));
+                string.Format("/UnitTest/TestResults/test-{0}.db", Guid.NewGuid()));
 
             return path;
         }

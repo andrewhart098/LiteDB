@@ -50,7 +50,7 @@ namespace UnitTest
             Assert.Equal(d["Date"].AsDateTime, o["Date"].AsDateTime);
             Assert.Equal(d["CustomerId"].AsGuid, o["CustomerId"].AsGuid);
             Assert.Equal(d["Items"].AsArray.Count, o["Items"].AsArray.Count);
-            Assert.Equal(d["_id"], 123);
+            Assert.Equal(d["_id"], "123");
             Assert.Equal(d["_id"].AsInt64, o["_id"].AsInt64);
         }
     }

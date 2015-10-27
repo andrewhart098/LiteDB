@@ -20,7 +20,7 @@ namespace UnitTest
     {
         private const string dbpath = @"filename=C:\Temp\perf.ldb;journal=true";
 
-        [TestInitialize]
+        // TODO: use xUnit constructor
         public void Init()
         {
             //File.Delete(dbpath);
@@ -29,56 +29,56 @@ namespace UnitTest
         [Fact]
         public void Create_100k_Rows_DB()
         {
-            using (var db = new LiteEngine(dbpath))
-            {
-                var c = db.GetCollection<PerfItem>("perf");
-                //c.EnsureIndex("MyGuid", true);
-                var id = 0;
+            //  using (var db = new LiteEngine(dbpath))
+            //  {
+            //      var c = db.GetCollection<PerfItem>("perf");
+            //      //c.EnsureIndex("MyGuid", true);
+            //      var id = 0;
 
-                for (var j = 0; j < 3; j++)
-                {
-                    var d = DateTime.Now;
-                    db.BeginTrans();
+            //      for (var j = 0; j < 3; j++)
+            //      {
+            //          var d = DateTime.Now;
+            //          db.BeginTrans();
 
-                    for (var i = 0; i < 10000; i++)
-                    {
-                        id++;
+            //          for (var i = 0; i < 10000; i++)
+            //          {
+            //              id++;
 
-                        c.Insert(id, new PerfItem { Id = id, MyGuid = Guid.NewGuid(), Nome = "Jose Silva " + id });
-                    }
+            //              c.Insert(id, new PerfItem { Id = id, MyGuid = Guid.NewGuid(), Nome = "Jose Silva " + id });
+            //          }
 
-                    db.Commit();
-                    Debug.Print("Commits " + j + " in " + DateTime.Now.Subtract(d).TotalMilliseconds);
-                }
-            }
+            //          db.Commit();
+            //          Debug.Print("Commits " + j + " in " + DateTime.Now.Subtract(d).TotalMilliseconds);
+            //      }
+            //  }
         }
 
         [Fact]
         public void Search_Perf()
         {
-            Guid g;
+            //  Guid g;
 
-            using (var db = new LiteEngine(dbpath))
-            {
-                var c = db.GetCollection<PerfItem>("perf");
+            //  using (var db = new LiteEngine(dbpath))
+            //  {
+            //      var c = db.GetCollection<PerfItem>("perf");
 
-                Debug.Print("Total rows in collection " + c.Count());
+            //      Debug.Print("Total rows in collection " + c.Count());
 
-                var i = c.FindById(7737);
+            //      var i = c.FindById(7737);
 
-                g = i.MyGuid;
+            //      g = i.MyGuid;
 
-                Debug.Print(i.MyGuid + " - " + i.Nome);
-            }
+            //      Debug.Print(i.MyGuid + " - " + i.Nome);
+            //  }
 
-            using (var db = new LiteEngine(dbpath))
-            {
-                var c = db.GetCollection<PerfItem>("perf");
+            //  using (var db = new LiteEngine(dbpath))
+            //  {
+            //      var c = db.GetCollection<PerfItem>("perf");
 
-                var i = c.FindOne(Query.EQ("MyGuid", g));
+            //      var i = c.FindOne(Query.EQ("MyGuid", g));
 
-                Debug.Print(i.MyGuid + " - " + i.Nome);
-            }
+            //      Debug.Print(i.MyGuid + " - " + i.Nome);
+            //  }
 
         }
 

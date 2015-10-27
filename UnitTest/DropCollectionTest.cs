@@ -15,14 +15,14 @@ namespace UnitTest
         {
             using (var db = new LiteDatabase(DB.Path()))
             {
-                Assert.IsFalse(db.CollectionExists("customerCollection"));
+                Assert.False(db.CollectionExists("customerCollection"));
                 var collection = db.GetCollection<Customer>("customerCollection");
                 
                 collection.Insert(new Customer());
-                Assert.IsTrue(db.CollectionExists("customerCollection"));
+                Assert.True(db.CollectionExists("customerCollection"));
 
                 db.DropCollection("customerCollection");
-                Assert.IsFalse(db.CollectionExists("customerCollection"));
+                Assert.False(db.CollectionExists("customerCollection"));
             }
         }
     }

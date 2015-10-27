@@ -47,8 +47,11 @@ namespace LiteDB
             if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException("connectionString");
 
             // If is only a name, get connectionString from App.config
-            if (Regex.IsMatch(connectionString, @"^[\w-]+$"))
-                connectionString = ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
+            if (Regex.IsMatch(connectionString, @"^[\w-]+$")) {
+                // connectionString = ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
+                throw new Exception("Not Implemented");
+            }
+                
 
             // Create a dictionary from string name=value collection
             var values = new Dictionary<string, string>();
