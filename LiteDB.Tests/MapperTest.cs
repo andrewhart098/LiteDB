@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -83,7 +83,6 @@ namespace UnitTest
         public DateTime MyDateIndexed { get; set; }
     }
 
-    [TestClass]
     public class MapperTest
     {
         private MyClass CreateModel()
@@ -127,7 +126,7 @@ namespace UnitTest
         }
 
 
-        [TestMethod]
+        [Fact]
         public void Mapper_Test()
         {
             var mapper = new BsonMapper();
@@ -141,50 +140,50 @@ namespace UnitTest
             var nobj = mapper.ToObject<MyClass>(doc);
 
             // compare object to document
-            Assert.AreEqual(doc["_id"].AsInt32, obj.MyId);
-            Assert.AreEqual(doc["MY-STRING"].AsString, obj.MyString);
-            Assert.AreEqual(doc["my_guid"].AsGuid, obj.MyGuid);
+            Assert.Equal(doc["_id"].AsInt32, obj.MyId);
+            Assert.Equal(doc["MY-STRING"].AsString, obj.MyString);
+            Assert.Equal(doc["my_guid"].AsGuid, obj.MyGuid);
 
             // compare 2 objects
-            Assert.AreEqual(obj.MyId, nobj.MyId);
-            Assert.AreEqual(obj.MyString, nobj.MyString);
-            Assert.AreEqual(obj.MyProperty, nobj.MyProperty);
-            Assert.AreEqual(obj.MyGuid, nobj.MyGuid);
-            Assert.AreEqual(obj.MyDateTime, nobj.MyDateTime);
-            Assert.AreEqual(obj.MyDateTimeNullable, nobj.MyDateTimeNullable);
-            Assert.AreEqual(obj.MyIntNullable, nobj.MyIntNullable);
-            Assert.AreEqual(obj.MyEnumProp, nobj.MyEnumProp);
-            Assert.AreEqual(obj.MyChar, nobj.MyChar);
-            Assert.AreEqual(obj.MyByte, nobj.MyByte);
-            Assert.AreEqual(obj.MyDecimal, nobj.MyDecimal);
-            Assert.AreEqual(obj.MyUri, nobj.MyUri);
-            Assert.AreEqual(obj.MyNameValueCollection["key-1"], nobj.MyNameValueCollection["key-1"]);
-            Assert.AreEqual(obj.MyNameValueCollection["KeyNumber2"], nobj.MyNameValueCollection["KeyNumber2"]);
+            Assert.Equal(obj.MyId, nobj.MyId);
+            Assert.Equal(obj.MyString, nobj.MyString);
+            Assert.Equal(obj.MyProperty, nobj.MyProperty);
+            Assert.Equal(obj.MyGuid, nobj.MyGuid);
+            Assert.Equal(obj.MyDateTime, nobj.MyDateTime);
+            Assert.Equal(obj.MyDateTimeNullable, nobj.MyDateTimeNullable);
+            Assert.Equal(obj.MyIntNullable, nobj.MyIntNullable);
+            Assert.Equal(obj.MyEnumProp, nobj.MyEnumProp);
+            Assert.Equal(obj.MyChar, nobj.MyChar);
+            Assert.Equal(obj.MyByte, nobj.MyByte);
+            Assert.Equal(obj.MyDecimal, nobj.MyDecimal);
+            Assert.Equal(obj.MyUri, nobj.MyUri);
+            Assert.Equal(obj.MyNameValueCollection["key-1"], nobj.MyNameValueCollection["key-1"]);
+            Assert.Equal(obj.MyNameValueCollection["KeyNumber2"], nobj.MyNameValueCollection["KeyNumber2"]);
 
 
             // list
-            Assert.AreEqual(obj.MyStringArray[0], nobj.MyStringArray[0]);
-            Assert.AreEqual(obj.MyStringArray[1], nobj.MyStringArray[1]);
-            Assert.AreEqual(obj.MyDict[2], nobj.MyDict[2]);
+            Assert.Equal(obj.MyStringArray[0], nobj.MyStringArray[0]);
+            Assert.Equal(obj.MyStringArray[1], nobj.MyStringArray[1]);
+            Assert.Equal(obj.MyDict[2], nobj.MyDict[2]);
 
             // interfaces
-            Assert.AreEqual(obj.MyInterface.Name, nobj.MyInterface.Name);
-            Assert.AreEqual(obj.MyListInterface[0].Name, nobj.MyListInterface[0].Name);
-            Assert.AreEqual(obj.MyIListInterface[0].Name, nobj.MyIListInterface[0].Name);
+            Assert.Equal(obj.MyInterface.Name, nobj.MyInterface.Name);
+            Assert.Equal(obj.MyListInterface[0].Name, nobj.MyListInterface[0].Name);
+            Assert.Equal(obj.MyIListInterface[0].Name, nobj.MyIListInterface[0].Name);
 
             // objects
-            Assert.AreEqual(obj.MyObjectString, nobj.MyObjectString);
-            Assert.AreEqual(obj.MyObjectInt, nobj.MyObjectInt);
-            Assert.AreEqual((obj.MyObjectImpl as MyImpl).Name, (nobj.MyObjectImpl as MyImpl).Name);
-            Assert.AreEqual(obj.MyObjectList[0], obj.MyObjectList[0]);
-            Assert.AreEqual(obj.MyObjectList[1], obj.MyObjectList[1]);
-            Assert.AreEqual(obj.MyObjectList[3], obj.MyObjectList[3]);
+            Assert.Equal(obj.MyObjectString, nobj.MyObjectString);
+            Assert.Equal(obj.MyObjectInt, nobj.MyObjectInt);
+            Assert.Equal((obj.MyObjectImpl as MyImpl).Name, (nobj.MyObjectImpl as MyImpl).Name);
+            Assert.Equal(obj.MyObjectList[0], obj.MyObjectList[0]);
+            Assert.Equal(obj.MyObjectList[1], obj.MyObjectList[1]);
+            Assert.Equal(obj.MyObjectList[3], obj.MyObjectList[3]);
 
-            Assert.AreEqual(nobj.MyInternalProperty, null);
+            Assert.Equal(nobj.MyInternalProperty, null);
         }
 
 
-        [TestMethod]
+        [Fact]
         public void MapperEntityBuilder_Test()
         {
             var mapper = new BsonMapper();
@@ -204,9 +203,9 @@ namespace UnitTest
             var nobj = mapper.ToObject<MyFluentEntity>(doc);
 
             // compare object to document
-            Assert.AreEqual(doc["_id"].AsInt32, obj.MyPrimaryPk);
-            Assert.AreEqual(doc["custom_field_name"].AsString, obj.CustomName);
-            Assert.AreNotEqual(doc["DoNotIncludeMe"].AsBoolean, obj.DoNotIncludeMe);
+            Assert.Equal(doc["_id"].AsInt32, obj.MyPrimaryPk);
+            Assert.Equal(doc["custom_field_name"].AsString, obj.CustomName);
+            Assert.NotEqual(doc["DoNotIncludeMe"].AsBoolean, obj.DoNotIncludeMe);
         }
     }
 }

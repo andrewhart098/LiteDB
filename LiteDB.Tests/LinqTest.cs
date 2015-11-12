@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -22,10 +22,9 @@ namespace UnitTest
         public string DomainName { get; set; }
     }
 
-    [TestClass]
     public class LinqTest
     {
-        [TestMethod]
+        [Fact]
         public void Linq_Test()
         {
             LiteDB.BsonMapper.Global.UseLowerCaseDelimiter('_');
@@ -44,30 +43,30 @@ namespace UnitTest
                 col.Insert(new User[] { c1, c2, c3, c4 });
 
                 // sub-class
-                Assert.AreEqual(3, col.Count(x => x.Domain.DomainName == "Numeria"));
+                Assert.Equal(3, col.Count(x => x.Domain.DomainName == "Numeria"));
 
                 // == !=
-                Assert.AreEqual(1, col.Count(x => x.Id == 1));
-                Assert.AreEqual(3, col.Count(x => x.Id != 1));
+                Assert.Equal(1, col.Count(x => x.Id == 1));
+                Assert.Equal(3, col.Count(x => x.Id != 1));
 
                 // member booleans
-                Assert.AreEqual(3, col.Count(x => !x.Active));
-                Assert.AreEqual(1, col.Count(x => x.Active));
+                Assert.Equal(3, col.Count(x => !x.Active));
+                Assert.Equal(1, col.Count(x => x.Active));
 
                 // methods
-                Assert.AreEqual(1, col.Count(x => x.Name.StartsWith("mal")));
-                Assert.AreEqual(1, col.Count(x => x.Name.Equals("Mauricio")));
-                Assert.AreEqual(1, col.Count(x => x.Name.Contains("cio")));
+                Assert.Equal(1, col.Count(x => x.Name.StartsWith("mal")));
+                Assert.Equal(1, col.Count(x => x.Name.Equals("Mauricio")));
+                Assert.Equal(1, col.Count(x => x.Name.Contains("cio")));
 
                 // > >= < <=
-                Assert.AreEqual(1, col.Count(x => x.Id > 3));
-                Assert.AreEqual(1, col.Count(x => x.Id >= 4));
-                Assert.AreEqual(1, col.Count(x => x.Id < 2));
-                Assert.AreEqual(1, col.Count(x => x.Id <= 1));
+                Assert.Equal(1, col.Count(x => x.Id > 3));
+                Assert.Equal(1, col.Count(x => x.Id >= 4));
+                Assert.Equal(1, col.Count(x => x.Id < 2));
+                Assert.Equal(1, col.Count(x => x.Id <= 1));
 
                 // and/or
-                Assert.AreEqual(1, col.Count(x => x.Id > 0 && x.Name == "MAURICIO"));
-                Assert.AreEqual(2, col.Count(x => x.Name == "malafaia" || x.Name == "MAURICIO"));
+                Assert.Equal(1, col.Count(x => x.Id > 0 && x.Name == "MAURICIO"));
+                Assert.Equal(2, col.Count(x => x.Name == "malafaia" || x.Name == "MAURICIO"));
             }
         }
     }

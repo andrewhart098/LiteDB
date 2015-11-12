@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -34,10 +34,9 @@ namespace UnitTest
         public decimal Price { get; set; }
     }
 
-    [TestClass]
     public class IncludeTest
     {
-        [TestMethod]
+        [Fact]
         public void Include_Test()
         {
             using (var db = new LiteDatabase(DB.Path()))

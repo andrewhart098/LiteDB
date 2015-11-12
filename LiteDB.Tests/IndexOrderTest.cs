@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -8,10 +8,9 @@ using System.Diagnostics;
 
 namespace UnitTest
 {
-    [TestClass]
     public class IndexOrderTest
     {
-        [TestMethod]
+        [Fact]
         public void Index_Order()
         {
             using (var db = new LiteDatabase(DB.Path()))
@@ -36,8 +35,8 @@ namespace UnitTest
                     .Select(x => x["text"].AsString)
                     .ToArray());
 
-                Assert.AreEqual(asc, "ABCDE");
-                Assert.AreEqual(desc, "EDCBA");
+                Assert.Equal(asc, "ABCDE");
+                Assert.Equal(desc, "EDCBA");
             }
         }
     }

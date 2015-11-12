@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -10,10 +10,9 @@ using System.Threading;
 
 namespace UnitTest
 {
-    [TestClass]
     public class FileStorage_Test
     {
-        [TestMethod]
+        [Fact]
         public void FileStorage_InsertDelete()
         {
             // create a dump file
@@ -25,15 +24,15 @@ namespace UnitTest
 
                 var exists = db.FileStorage.Exists("Core.dll");
 
-                Assert.AreEqual(true, exists);
+                Assert.Equal(true, exists);
 
                 var deleted = db.FileStorage.Delete("Core.dll");
 
-                Assert.AreEqual(true, deleted);
+                Assert.Equal(true, deleted);
 
                 var deleted2 = db.FileStorage.Delete("Core.dll");
 
-                Assert.AreEqual(false, deleted2);
+                Assert.Equal(false, deleted2);
 
 
             }
@@ -44,7 +43,7 @@ namespace UnitTest
         public string fdb = DB.Path();
         public Random rnd = new Random();
 
-        [TestMethod]
+        [Fact]
         public void FileStorage_Concurrency()
         {
             using (var db = new LiteDatabase(fdb))

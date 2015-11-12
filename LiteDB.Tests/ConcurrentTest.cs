@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 
 namespace UnitTest
 {
-    [TestClass]
     public class ConcurrentTest
     {
         private Random _rnd = new Random();
 
-        [TestMethod]
+        [Fact]
         public void Concurrent_Test()
         {
             var file = DB.Path();
@@ -96,12 +95,12 @@ namespace UnitTest
                 var col = db.GetCollection("col1");
                 var doc = col.FindById(1);
 
-                Assert.AreEqual(doc["name"].AsString, "update value");
-                Assert.AreEqual(doc["date"].AsDateTime, new DateTime(2015, 1, 1));
-                Assert.AreEqual(doc["value"].IsNull, true);
-                Assert.AreEqual(col.Count(), 1);
+                Assert.Equal(doc["name"].AsString, "update value");
+                Assert.Equal(doc["date"].AsDateTime, new DateTime(2015, 1, 1));
+                Assert.Equal(doc["value"].IsNull, true);
+                Assert.Equal(col.Count(), 1);
 
-                Assert.AreEqual(db.FileStorage.FindAll().Count(), 20);
+                Assert.Equal(db.FileStorage.FindAll().Count(), 20);
             }
         }
 

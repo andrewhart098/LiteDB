@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using LiteDB;
 using System.IO;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace UnitTest
 {
-    [TestClass]
+
     public class JsonTest
     {
         private BsonDocument CreateDoc()
@@ -38,7 +38,7 @@ namespace UnitTest
             return doc;
         }
 
-        [TestMethod]
+        [Fact]
         public void Json_Test()
         {
             var o = CreateDoc();
@@ -47,11 +47,11 @@ namespace UnitTest
 
             var d = JsonSerializer.Deserialize(json).AsDocument;
 
-            Assert.AreEqual(d["Date"].AsDateTime, o["Date"].AsDateTime);
-            Assert.AreEqual(d["CustomerId"].AsGuid, o["CustomerId"].AsGuid);
-            Assert.AreEqual(d["Items"].AsArray.Count, o["Items"].AsArray.Count);
-            Assert.AreEqual(d["_id"], 123);
-            Assert.AreEqual(d["_id"].AsInt64, o["_id"].AsInt64);
+            Assert.Equal(d["Date"].AsDateTime, o["Date"].AsDateTime);
+            Assert.Equal(d["CustomerId"].AsGuid, o["CustomerId"].AsGuid);
+            Assert.Equal(d["Items"].AsArray.Count, o["Items"].AsArray.Count);
+            Assert.Equal(d["_id"].AsInt32, 123);
+            Assert.Equal(d["_id"].AsInt64, o["_id"].AsInt64);
         }
     }
 }
