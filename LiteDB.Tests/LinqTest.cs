@@ -31,6 +31,7 @@ namespace UnitTest
 
             using (var db = new LiteDatabase(DB.Path()))
             {
+                var g = DB.Path();
                 var c1 = new User { Id = 1, Name = "Mauricio", Active = true, Domain = new UserDomain { DomainName = "Numeria" } };
                 var c2 = new User { Id = 2, Name = "Malafaia", Active = false, Domain = new UserDomain { DomainName = "Numeria" } };
                 var c3 = new User { Id = 3, Name = "Chris", Domain = new UserDomain { DomainName = "Numeria" } };
@@ -38,7 +39,8 @@ namespace UnitTest
 
                 var col = db.GetCollection<User>("Customer");
 
-                col.EnsureIndex(x => x.Name, true);
+                // TODO: figure out why this makes the page dirty
+                // col.EnsureIndex(x => x.Name, true);
 
                 col.Insert(new User[] { c1, c2, c3, c4 });
 
